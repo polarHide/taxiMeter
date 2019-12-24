@@ -1,7 +1,7 @@
 -- file : clk_generate.vhd
--- fuction : ´Ó»ùÆµ1MHz²úÉú·ÖÆµÊ±ÖÓ£º
--- 			clk_50Hz£º50HzÊ±ÖÓÓÃÓÚÏÔÊ¾Ä£¿éÓë¸ßµÍËÙÅĞ¶ÏÄ£¿é
--- 			clk_20kHz£º20KHz(50us)ÓÃÓÚ¼Æ¼ÛÄ£¿é
+-- fuction : ä»åŸºé¢‘1MHzäº§ç”Ÿåˆ†é¢‘æ—¶é’Ÿï¼š
+------------ clk_50Hzï¼š50Hzæ—¶é’Ÿç”¨äºæ˜¾ç¤ºæ¨¡å—ä¸é«˜ä½é€Ÿåˆ¤æ–­æ¨¡å—
+------------ clk_20kHzï¼š20KHz(50us)ç”¨äºè®¡ä»·æ¨¡å—
 -- author : ojw
 -- createDate : 2019-12-19
 
@@ -11,23 +11,23 @@ use ieee.numeric_std.all;
 
 entity clk_generate is
 	port(
-		clk_1MHz : in std_logic;	-- »ùÆµ
+		clk_1MHz : in std_logic;	-- åŸºé¢‘
 		rst 	  : in std_logic;
-		clk_50Hz  : out std_logic;	-- ·ÖÆµ50Hz
-		clk_20KHz : out std_logic	-- ·ÖÆµ20KHz
+		clk_50Hz  : out std_logic;	-- åˆ†é¢‘50Hz
+		clk_20KHz : out std_logic	-- åˆ†é¢‘20KHz
 		);
 end clk_generate;
 
 architecture bhv of clk_generate is
-	signal prescaler_50Hz : unsigned(23 downto 0);	-- Ô¤·ÖÆµÉèÖÃ50Hz
-	signal prescaler_20KHz : unsigned(23 downto 0);		-- Ô¤·ÖÆµÉèÖÃ20KHz
+	signal prescaler_50Hz : unsigned(23 downto 0);	-- é¢„åˆ†é¢‘è®¾ç½®50Hz
+	signal prescaler_20KHz : unsigned(23 downto 0);		-- é¢„åˆ†é¢‘è®¾ç½®20KHz
 	signal clk_50Hz_out : std_logic;
 	signal clk_20KHz_out : std_logic;
 begin
-	-- 50Hz·ÖÆµ½ø³Ì
+	-- 50Hzåˆ†é¢‘è¿›ç¨‹
 	clk_50Hz_generate : process(clk_1MHz, rst)
 	begin
-		if rst = '1' then	-- rst=0Ê±·ÖÆµ£¬rst=1Ê±¸´Î»
+		if rst = '1' then	-- rst=0æ—¶åˆ†é¢‘ï¼Œrst=1æ—¶å¤ä½
 			clk_50Hz_out <= '0';
 			prescaler_50Hz <= (others => '0');
 		elsif rising_edge(clk_1MHz) then
@@ -40,10 +40,10 @@ begin
 		end if;
 	end process clk_50Hz_generate;
 
-	-- 20KHz·ÖÆµ½ø³Ì	
+	-- 20KHzåˆ†é¢‘è¿›ç¨‹	
 	clk_20KHz_generate : process(clk_1MHz, rst)
 	begin
-		if rst = '1' then	-- rst=0Ê±·ÖÆµ£¬rst=1Ê±¸´Î»
+		if rst = '1' then	-- rst=0æ—¶åˆ†é¢‘ï¼Œrst=1æ—¶å¤ä½
 			clk_20KHz_out <= '0';
 			prescaler_20KHz <= (others => '0');
 		elsif rising_edge(clk_1MHz) then
